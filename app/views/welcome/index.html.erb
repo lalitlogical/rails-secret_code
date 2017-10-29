@@ -1,0 +1,10 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "cover" %>
+<% end %>
+<center>
+  <h1 class="cover-heading">Welcome Back!</h1>
+  <p class="lead">Secret code example !!!</p>
+  <p class="lead">
+    <%= link_to "Login", new_user_session_path, class: 'btn btn-primary btn-lg'%>
+  </p>
+</center>

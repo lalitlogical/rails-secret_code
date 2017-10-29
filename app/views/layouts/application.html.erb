@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Secretcode</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield(:head) %>
+  </head>
+
+  <body>
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <header class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">Cover</h3>
+              <nav class="nav nav-masthead">
+                <%= link_to "Home", root_path, class: 'nav-link active' %>
+                <% if user_signed_in? %>
+                  <%= link_to "Secret Codes", secret_codes_path, class: 'nav-link' if current_user.is_admin? %>
+                  <%= link_to 'Logout', destroy_user_session_path, class: 'nav-link', data: { method: "delete"} %>
+                <% end %>
+              </nav>
+            </div>
+          </header>
+
+          <main role="main" class="inner cover">
+            <% [:notice, :error, :alert, :warning, :success].each do |level| %>
+            	<% unless flash[level].blank? %>
+            		<div class="custom-alerts <%= flash_class(level) %> alert-dismissible">
+            			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+            			<%= flash[level].html_safe %>
+            		</div>
+            		<% flash[level] = nil %>
+            	<% end %>
+            <% end %>
+            <%= yield %>
+          </main>
+
+        </div>
+
+      </div>
+
+    </div>
+  </body>
+</html>
